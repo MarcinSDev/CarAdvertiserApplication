@@ -1,0 +1,321 @@
+﻿@model CarAdvertiser.Models.AdvertSearchViewModel
+@{
+    ViewBag.Title = "Search Advert";
+}
+
+<p></p>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="container-fluid" style="width: 100%">
+        <div class="row">
+            <div class="offset-lg-3 col-lg-6">
+                <p></p>
+                <h1 align ="center">Biggest Selection of Used Cars</h1>
+                <p class="lead" align="center">Search Now!</p>
+                <div class="row">
+                    <div class="col">
+                        @Html.DropDownList("frontendMakeId", (IEnumerable<SelectListItem>)ViewData["Make"], "Select Make (Any)", new { @class = "form-control dropdown" })
+                    </div>
+                    <div class="col">
+                        @Html.DropDownList("frontendModelId", new SelectList(string.Empty, "Value", "Text"), "Select Model (Any)", new { @class = "form-control dropdown" })
+                    </div>
+                    <div class="col">
+                        @Html.DropDownListFor(x => x.MinRegYear, (IEnumerable<SelectListItem>)ViewData["FromYear"], "Minimum Year", new { @class = "form-control dropdown" })
+                    </div>
+                    <div class="col">
+                        @Html.DropDownListFor(x => x.MaxRegYear, (IEnumerable<SelectListItem>)ViewData["ToYear"], "Maximum Year", new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col">
+                        @Html.DropDownListFor(x => x.MinPrice, (IEnumerable<SelectListItem>)ViewData["MinPrice"], "Minimum Price", new { @class = "form-control dropdown" })
+                    </div>
+                    <div class="col">
+                        @Html.DropDownListFor(x => x.MaxPrice, (IEnumerable<SelectListItem>)ViewData["MaxPrice"], "Maximum Price", new { @class = "form-control dropdown" })
+                    </div>
+                    <div class="col">
+                        @Html.DropDownListFor(x => x.MinHorsePower, (IEnumerable<SelectListItem>)ViewData["HorsePower"], "Minimum BHP", new { @class = "form-control dropdown" })
+                    </div>
+                    <div class="col">
+                        @Html.DropDownListFor(x => x.MaxMilleage, (IEnumerable<SelectListItem>)ViewData["Mileage"], "Maximum Mileage", new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+                <p></p>
+                <hr />
+                <h6 align="center">Select Body Type</h6>
+                <div class="container-fluid" style="background-color: white; height: auto; width: 100%;">
+                    <div class="form-group row row-clickable-normal" style="background-color: white;">
+                        <div class="col-md-3" id="stylesOpen">
+                            @Html.Label("Click To View (Optional)", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="stylesClose">
+                            @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="styles">
+                            @Html.EditorFor(x => x.Styles)
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <h6 align="center">Select Engine Size</h6>
+                <div class="container-fluid" style="background-color: white; height: auto; width: 100%;">
+                    <div class="form-group row row-clickable-normal" style="background-color: white;">
+                        <div class="col-md-3" id="enginesOpen">
+                            @Html.Label("Click To View (Optional)", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="enginesClose">
+                            @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="engines">
+                            @Html.EditorFor(x => x.Engines)
+                        </div>
+                    </div>
+                </div><hr />
+                <h6 align="center">Select Door Amount</h6>
+                <div class="container-fluid" style="background-color: white; height: auto; width: 100%;">
+                    <div class="form-group row row-clickable-normal" style="background-color: white;">
+                        <div class="col-md-3" id="doorsOpen">
+                            @Html.Label("Click To View (Optional)", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="doorsClose">
+                            @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="doors">
+                            @Html.EditorFor(x => x.Doors)
+                        </div>
+                    </div>
+                </div><hr />
+                <h6 align="center">Select Seat Amount</h6>
+                <div class="container-fluid" style="background-color: white; height: auto; width: 100%;">
+                    <div class="form-group row row-clickable-normal" style="background-color: white;">
+                        <div class="col-md-3" id="seatsOpen">
+                            @Html.Label("Click To View (Optional)", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="seatsClose">
+                            @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="seats">
+                            @Html.EditorFor(x => x.Seats)
+                        </div>
+                    </div>
+                </div><hr />
+                <h6 align="center">Select Colour</h6>
+                <div class="container-fluid" style="background-color: white; height: auto; width: 100%;">
+                    <div class="form-group row row-clickable-normal" style="background-color: white;">
+                        <div class="col-md-3" id="coloursOpen">
+                            @Html.Label("Click To View (Optional)", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="coloursClose">
+                            @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="colours">
+                            @Html.EditorFor(x => x.Colours)
+                        </div>
+                    </div>
+                </div><hr />
+                <h6 align="center">Select Transmission</h6>
+                <div class="container-fluid" style="background-color: white; height: auto; width: 100%;">
+                    <div class="form-group row row-clickable-normal" style="background-color: white;">
+                        <div class="col-md-3" id="transmissionsOpen">
+                            @Html.Label("Click To View (Optional)", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="transmissionsClose">
+                            @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="transmissions">
+                            @Html.EditorFor(x => x.Transmissions)
+                        </div>
+                    </div>
+                </div><hr />
+                <h6 align="center">Select Drivetrain</h6>
+                <div class="container-fluid" style="background-color: white; height: auto; width: 100%;">
+                    <div class="form-group row row-clickable-normal" style="background-color: white;">
+                        <div class="col-md-3" id="drivetrainsOpen">
+                            @Html.Label("Click To View (Optional)", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="drivetrainsClose">
+                            @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="drivetrains">
+                            @Html.EditorFor(x => x.Drivetrains)
+                        </div>
+                    </div>
+                </div><hr />
+                <h6 align="center">Select Fuel Type</h6>
+                <div class="container-fluid" style="background-color: white; height: auto; width: 100%;">
+                    <div class="form-group row row-clickable-normal" style="background-color: white;">
+                        <div class="col-md-3" id="fueltypesOpen">
+                            @Html.Label("Click To View (Optional)", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="fueltypesClose">
+                            @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+                        </div>
+                        <div class="col-md-3 hide" id="fueltypes">
+                            @Html.EditorFor(x => x.Fueltypes)
+                        </div>
+                    </div>
+                </div><hr />
+                <p></p>
+                <div class="col-lg-12">
+                    <input type="submit" id="btnSearch" name="btnSearch" value="Search" class="btn btn-primary w-100" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#frontendMakeId").change(function() {
+            $("#frontendModelId").empty();
+            var makeSelectedIndex = $("#frontendMakeId").prop('selectedIndex');
+
+            if (makeSelectedIndex !== 0) {
+                var placeOptionLabel = true;
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetModels", "Advert")',
+                    dataType: 'json',
+                    data: { makeId: $("#frontendMakeId").val() },
+                    success: function(results) {
+                        $.each(results,
+                            function(i, result) {
+                                console.log("i:" + i);
+                                if (placeOptionLabel) {
+                                    $("#frontendModelId").append(
+                                        '<option selected="selected" value>--- Any model ---</option>');
+                                    placeOptionLabel = false;
+                                }
+
+                                $("#frontendModelId")
+                                    .append('<option value="' + result.Value + '">' + result.Text + '</option>');
+                            });
+                    },
+                    error: function(ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            } else {
+                $("#frontendModelId").append('<option selected="selected" value>--- Any model ---</option>');
+            }
+
+            return false;
+        });
+    });
+
+    $("#stylesOpen").click(function() {
+        if ($('#styles:visible').length === 0) {
+            $("#styles").fadeIn('slow');
+            $("#stylesOpen").hide();
+            $("#stylesClose").show();
+        }
+    });
+    $("#stylesClose").click(function() {
+        if ($('#styles:visible').length !== 0) {
+            $("#styles").hide();
+            $("#stylesOpen").show();
+            $("#stylesClose").hide();
+        }
+    });
+    $("#enginesOpen").click(function() {
+        if ($('#engines:visible').length === 0) {
+            $("#engines").fadeIn('slow');
+            $("#enginesOpen").hide();
+            $("#enginesClose").show();
+        }
+    });
+    $("#enginesClose").click(function() {
+        if ($('#engines:visible').length !== 0) {
+            $("#engines").hide();
+            $("#enginesOpen").show();
+            $("#enginesClose").hide();
+        }
+    });
+    $("#doorsOpen").click(function() {
+        if ($('#doors:visible').length === 0) {
+            $("#doors").fadeIn('slow');
+            $("#doorsOpen").hide();
+            $("#doorsClose").show();
+        }
+    });
+    $("#doorsClose").click(function() {
+        if ($('#doors:visible').length !== 0) {
+            $("#doors").hide();
+            $("#doorsOpen").show();
+            $("#doorsClose").hide();
+        }
+    });
+    $("#seatsOpen").click(function() {
+        if ($('#seats:visible').length === 0) {
+            $("#seats").fadeIn('slow');
+            $("#seatsOpen").hide();
+            $("#seatsClose").show();
+        }
+    });
+    $("#seatsClose").click(function() {
+        if ($('#seats:visible').length !== 0) {
+            $("#seats").hide();
+            $("#seatsOpen").show();
+            $("#seatsClose").hide();
+        }
+    });
+    $("#coloursOpen").click(function() {
+        if ($('#colours:visible').length === 0) {
+            $("#colours").fadeIn('slow');
+            $("#coloursOpen").hide();
+            $("#coloursClose").show();
+        }
+    });
+    $("#coloursClose").click(function() {
+        if ($('#colours:visible').length !== 0) {
+            $("#colours").hide();
+            $("#coloursOpen").show();
+            $("#coloursClose").hide();
+        }
+    });
+    $("#transmissionsOpen").click(function() {
+        if ($('#transmissions:visible').length === 0) {
+            $("#transmissions").fadeIn('slow');
+            $("#transmissionsOpen").hide();
+            $("#transmissionsClose").show();
+        }
+    });
+    $("#transmissionsClose").click(function() {
+        if ($('#transmissions:visible').length !== 0) {
+            $("#transmissions").hide();
+            $("#transmissionsOpen").show();
+            $("#transmissionsClose").hide();
+        }
+    });
+    $("#drivetrainsOpen").click(function() {
+        if ($('#drivetrains:visible').length === 0) {
+            $("#drivetrains").fadeIn('slow');
+            $("#drivetrainsOpen").hide();
+            $("#drivetrainsClose").show();
+        }
+    });
+    $("#drivetrainsClose").click(function() {
+        if ($('#drivetrains:visible').length !== 0) {
+            $("#drivetrains").hide();
+            $("#drivetrainsOpen").show();
+            $("#drivetrainsClose").hide();
+        }
+    });
+    $("#fueltypesOpen").click(function() {
+        if ($('#fueltypes:visible').length === 0) {
+            $("#fueltypes").fadeIn('slow');
+            $("#fueltypesOpen").hide();
+            $("#fueltypesClose").show();
+        }
+    });
+    $("#fueltypesClose").click(function() {
+        if ($('#fueltypes:visible').length !== 0) {
+            $("#fueltypes").hide();
+            $("#fueltypesOpen").show();
+            $("#fueltypesClose").hide();
+        }
+    });
+</script>

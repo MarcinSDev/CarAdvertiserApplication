@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "UserPanel";
+}
+<h2 align="center">Welcome @User.Identity.Name</h2>
+<br/>
+<hr/>
+<div class="container-fluid" style="width: 80%">
+    <div class="row">
+        <div class="col-md">
+            <div class="card border-info mx-sm-1 p-3">
+                <div class="card border-info shadow text-info p-3 my-card"><span class="fa fa-car" aria-hidden="true"></span></div>
+                <div class="text-info text-center mt-3"><h4>Active Adverts</h4></div>
+                <div class="text-info text-center mt-2"><h1>@ViewBag.UserAdvertCount</h1></div>
+                <a href="@Url.Action("ManageAdverts", "User")" class="btn btn-primary">Show Active Adverts</a>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card border-danger mx-sm-1 p-3">
+                <div class="card border-danger shadow text-info p-3 my-card"><span class="fa fa-car" aria-hidden="true"></span></div>
+                <div class="text-info text-center mt-3"><h4>Expired Adverts</h4></div>
+                <div class="text-info text-center mt-2"><h1>@ViewBag.UserExpiredAdvertCount</h1></div>
+                <a href="@Url.Action("ExpiredAdverts", "User")" class="btn btn-primary">Show Expired Adverts</a>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-info p-3 my-card"><span class="fa fa-car" aria-hidden="true"></span></div>
+                <div class="text-info text-center mt-3"><h4>Sold Vehicles</h4></div>
+                <div class="text-info text-center mt-2"><h1>@ViewBag.UserSoldCars</h1></div>
+                <a href="@Url.Action("SoldCars", "User")" class="btn btn-primary">Show Sold Vehicles</a>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-info p-3 my-card"><span class="fa fa-car" aria-hidden="true"></span></div>
+                <div class="text-info text-center mt-3"><h4>My Bookings</h4></div>
+                <div class="text-info text-center mt-2"><h1>@ViewBag.MyBookingsCount</h1></div>
+                <a href="@Url.Action("MyBookings", "User")" class="btn btn-primary">Show Bookings</a>
+            </div>
+        </div>
+    </div>
+</div>
+

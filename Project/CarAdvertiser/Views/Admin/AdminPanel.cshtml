@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "AdminPanel";
+}
+
+<h2 align="center">Welcome @User.Identity.Name</h2>
+<h6 align="center">(Admin)</h6>
+
+<div class="container-fluid" style="width: 80%">
+    <div class="row">
+        <div class="col-lg-4">
+            <button type="button" style="height: 100%; width: 100%" onclick="location.href = '@Url.Action("ReportingPage", "Admin")'">Reporting Page</button>
+        </div>
+        <div class="col-lg-4">
+            <button type="button" style="height: 100%; width: 100%">Manage Roles</button>
+        </div>
+        <div class="col-lg-4">
+            <button type="button" style="height: 100%; width: 100%">Master Data</button>
+        </div>
+    </div>
+</div>
+

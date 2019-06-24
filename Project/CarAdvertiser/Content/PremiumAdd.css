@@ -1,0 +1,47 @@
+﻿/*Picture*/
+#premiumCars dl {
+    width: 350px;
+    overflow: hidden;
+    background: white;
+    padding: 0;
+    margin: 0;
+    box-shadow: 1px 1px 2px #aaaaaa;
+    border-radius: 0px;
+}
+
+#premiumCars dt {
+    float: left;
+    width: 350px;
+    background: white;
+    padding: 0px;
+    margin: 0;
+}
+
+#premiumCars dd {
+    float: left;
+    width: 350px;
+    height: auto;
+    background: white;
+    padding: 10px;
+    margin: 0;
+    text-transform: uppercase;
+    color: black;
+}
+
+.price {
+    alignment: right;
+    color: red;
+    font-weight: bold;
+}
+
+img.featured-car-img {
+    width: 350px;
+    height: 250px;
+    border-radius: 0px;
+}
+
+.main-active-adverts {
+    background-color: white;
+    width: 70%;
+    box-shadow: 55px 55px 55px 55px #000000;
+}

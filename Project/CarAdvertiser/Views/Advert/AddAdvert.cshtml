@@ -1,0 +1,346 @@
+﻿@model CarAdvertiser.Models.AddAdvertViewModel
+
+@{
+    ViewBag.Title = "Add Advert";
+}
+
+<p></p>
+<h2 align="center" style="color: grey; text-shadow: 0 0 1px black"> Your Vehicle </h2>
+
+@if (TempData["error"] != null)
+{
+    <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h3>
+            <strong class="alert-heading">Error!</strong>
+        </h3>
+        <hr />
+        <p>
+            @Html.Raw(TempData["error"])
+        </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+else if (TempData["success"] != null)
+{
+    <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <h3>
+            <strong class="alert-heading">Success!</strong>
+        </h3>
+        <hr />
+        <p>
+            @Html.Raw(TempData["success"])
+        </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<p></p>
+
+@using (Html.BeginForm("AddAdvert", "Advert", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid" style="background-color: white; width: 80%">
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.Label("Make:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.ManufacturerId, (IEnumerable<SelectListItem>)ViewData["Make"], "--- Select Manufacturer ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.ManufacturerId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+                @Html.Label("Model:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.CarModelId, new SelectList(string.Empty, "Value", "Text"), "--- Select Model ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.CarModelId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.Label("Engine Size:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.EngineSizeId, (IEnumerable<SelectListItem>)ViewData["Engine"], "--- Select Engine Size ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.EngineSizeId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+                @Html.Label("Body Type:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.BodyTypeId, (IEnumerable<SelectListItem>)ViewData["BodyType"], "--- Select Body Type ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.BodyTypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.Label("Transmission:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.TransmissionId, (IEnumerable<SelectListItem>)ViewData["Transmission"], "--- Select Transmission ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.TransmissionId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+                @Html.Label("Seat Amount:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.SeatAmountId, (IEnumerable<SelectListItem>)ViewData["Seat"], "--- Select Seat Amount ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.SeatAmountId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.Label("Drivetrain:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.DriveTrainId, (IEnumerable<SelectListItem>)ViewData["Drivetrain"], "--- Select Drivetrain ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.DriveTrainId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+                @Html.Label("Fuel Type:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.FuelTypeId, (IEnumerable<SelectListItem>)ViewData["FuelType"], "--- Select Fuel Type ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.FuelTypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.Label("Door Amount:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.DoorAmountId, (IEnumerable<SelectListItem>)ViewData["Door"], "--- Select Door Amount ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.DoorAmountId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+                @Html.Label("Year:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.RegYear, (IEnumerable<SelectListItem>)ViewData["Year"], "--- Select Year Of Registration ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.RegYear, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(x => x.ColourId, new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(x => x.ColourId, (IEnumerable<SelectListItem>)ViewData["Colour"], "--- Select Colour ---", new { @class = "form-control dropdown" })
+                        @Html.ValidationMessageFor(x => x.ColourId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(x => x.Price, new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.Price, new { @type = "number", @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(x => x.AmountOfPrevOwners, new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AmountOfPrevOwners, new { @type = "number", @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.AmountOfPrevOwners, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(x => x.CurrentMileage, new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.CurrentMileage, new { @type = "number", @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.CurrentMileage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(x => x.HorsePower, new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.HorsePower, new { @type = "number", @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.HorsePower, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row form-group h-100">
+                    <div class="col-md-4">
+                        @Html.LabelFor(x => x.AdvertDescription, new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.AdvertDescription, new { @class = "form-control h-100" })
+                        @Html.ValidationMessageFor(x => x.AdvertDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <p></p>
+    <h2 align="center" style="color: grey; text-shadow: 0 0 1px black"> Choose Car Extras </h2>
+    <p>
+        <hr />
+    </p>
+
+    <div class="container-fluid" style="background-color: white; width: 80%">
+        <div class="form-group row row-clickable-normal" style="background-color: white;">
+
+            <div class="col-md-3" id="additionalsOpen">
+                @Html.Label("Click To View", new { @class = "col-form-label btn-filters" })
+            </div>
+            <div class="col-md-3 hide" id="additionalsClose">
+                @Html.Label("Click To Close", new { @class = "col-form-label btn-filters" })
+            </div>
+            <div class="col-md-3 hide" id="additionals">
+                @Html.EditorFor(x => x.Additionals)
+            </div>
+        </div>
+    </div>
+
+    <p></p>
+    <h2 align="center" style="color: grey; text-shadow: 0 0 1px black"> Add Images </h2>
+    <p>
+        <hr />
+    </p>
+
+    <div class="container-fluid" style="background-color: white; width: 80%">
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Label("Image to upload (only JPG)", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-3">
+                <input type="file" value="Select an image to upload" id="files" name="files" class="col-form-label" accept="image/jpg,image/jpeg" multiple="multiple" />
+            </div>
+        </div>
+    </div>
+    <p></p>
+    <h2 align="center" style="color: grey; text-shadow: 0 0 1px black"> Finalize Your Advert </h2>
+    <p>
+        <hr />
+    </p>
+
+    <div class="container-fluid" style="background-color: white; width: 80%">
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(x => x.IsPremium)
+            </div>
+            <div class="col-md-3">
+                @Html.CheckBoxFor(x => x.IsPremium)
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(x => x.AdvertOpenDate)
+            </div>
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.AdvertOpenDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } }) @*if time is needed, then type should be datetime-local instead of date*@
+                @Html.ValidationMessageFor(x => x.AdvertOpenDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(x => x.AdvertAliveDays)
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownListFor(x => x.AdvertAliveDays, (IEnumerable<SelectListItem>)ViewData["Days"], "--- Please choose (1 Day is £1.20) ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.AdvertAliveDays, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.TotalPrice, new { @class = "col-md-2" })
+            <div class="col-md-10" style="font-weight: bold; color: red;">
+                @*@Html.DisplayFor(m => m.TotalPrice, new { @class = "form-control" })*@
+                <label id="lblPrice">@Model.TotalPrice</label>
+            </div>
+        </div>
+    </div>
+
+    <p></p>
+    <div class="row form-group">
+        <div class="offset-lg-4 col-lg-4">
+            <input type="submit" id="btnAdd" name="btnAdd" value="Add to database" class="btn btn-primary w-100" />
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#ManufacturerId").change(function() {
+            $("#CarModelId").empty();
+            var makeSelectedIndex = $("#ManufacturerId").prop('selectedIndex');
+            if (makeSelectedIndex !== 0) {
+                var placeOptionLabel = true;
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetModels", "Advert")',
+                    dataType: 'json',
+                    data: { makeId: $("#ManufacturerId").val() },
+                    success: function(results) {
+                        $.each(results,
+                            function(i, result) {
+                                if (placeOptionLabel) {
+                                    $("#CarModelId").append(
+                                        '<option selected="selected" value>--- Select a model ---</option>');
+                                    placeOptionLabel = false;
+                                }
+
+                                $("#CarModelId")
+                                    .append('<option value="' + result.Value + '">' + result.Text + '</option>');
+                            });
+                    },
+                    error: function(ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            } else {
+                $("#CarModelId").append('<option selected="selected" value>--- Select a model ---</option>');
+            }
+
+            return false;
+        });
+
+        $("#ManufacturerId").trigger("change");
+
+        $("#AdvertAliveDays").change(function () {
+            if ($("#AdvertAliveDays").prop('selectedIndex') !== 0) {
+                var days = $("#AdvertAliveDays").val();
+                var price = (days * 1.2).toFixed(2);
+                $("#lblPrice").text(price);
+            }
+        });
+    });
+
+    $("#successAlert").fadeTo(2000, 500).slideUp(500,
+        function() {
+            $("#successAlert").slideUp(500);
+        });
+
+    $("#additionalsOpen").click(function() {
+        if ($('#additionals:visible').length === 0) {
+            $("#additionals").fadeIn('slow');
+            $("#additionalsOpen").hide();
+            $("#additionalsClose").show();
+        }
+    });
+    $("#additionalsClose").click(function () {
+        if ($('#additionals:visible').length !== 0) {
+            $("#additionals").hide();
+            $("#additionalsOpen").show();
+            $("#additionalsClose").hide();
+        }
+    });
+</script>

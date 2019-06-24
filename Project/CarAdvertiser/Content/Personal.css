@@ -1,0 +1,300 @@
+﻿html {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    position: center
+}
+
+.full-width-image {
+    height: auto; 
+    background: url("containerimage.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+
+
+.jumbotron {
+    border-radius: 0 !important;
+    background: rgba(204, 204, 204, 0.9);
+}
+.container-fluid {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #F5F5F5;
+}
+body {
+    /*"background: url('') no-repeat center center fixed;*/
+    background-color: whitesmoke;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    border-top: solid 0px #000;
+    color: #333;
+    /*font-family: 'Roboto', sans-serif;*/
+    font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    margin: 0;
+    padding: 0;
+}
+
+.push {
+    height: 50px; /* we push down the footer */
+}
+
+header, footer, hgroup,
+nav, section {
+    display: block;
+}
+
+footer {
+    clear: both;
+    background-color: #e2e2e2;
+    font-size: .8em;
+    height: 20px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding-right: 10px;
+    text-align: right;
+}
+
+/* menu ----------------------------------------------------------*/
+ul#menu {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 0 0 5px;
+    padding: 0;
+    text-align: right;
+}
+
+    ul#menu li {
+        display: inline;
+        list-style: none;
+        padding-left: 15px;
+    }
+
+        ul#menu li a {
+            background: none;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            ul#menu li a:hover {
+                color: black;
+                text-decoration: none;
+            }
+
+
+
+/* DataTables modification for BootStrap 4 */
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after {
+    font-family: 'Font Awesome 5 Free';
+}
+
+table.dataTable thead .sorting:after {
+    content: "\f0dc";
+}
+
+table.dataTable thead .sorting_asc:after {
+    content: "\f0de";
+}
+
+table.dataTable thead .sorting_desc:after {
+    content: "\f0dd";
+}
+
+/* info and error */
+.message-info {
+    border: 1px solid;
+    clear: both;
+    padding: 10px 20px;
+}
+
+.message-error {
+    clear: both;
+    color: #e80c4d;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.message-success {
+    color: #7ac0da;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.error {
+    color: #e80c4d;
+}
+
+
+.navbar-nav {
+    flex-direction: row;
+    font-weight: bolder;
+}
+
+
+.nav-link {
+    padding-right: .5rem !important;
+    padding-left: .5rem !important;
+}
+
+.ml-auto .dropdown-menu {
+    left: auto !important;
+    right: 0px;
+}
+
+.navbar-nav a.link {
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav a:hover {
+    color: black;
+    background-color: lightgrey;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.navbar-nav a {
+    padding: 0.3rem 0.1rem;
+}
+
+.nav-item a {
+    color: #007bff !important;
+}
+
+    .nav-item a:hover {
+        color: black !important;
+        background-color: lightgray;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+
+.my-small-btn {
+    background-color: blue;
+    width: 340px;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+.my-small-btn:hover {
+    opacity: 1
+}
+
+.dropdown-item {
+    font-weight: bold;
+    color: #007bff !important;
+}
+
+/* column delimiter */
+@media ( min-width: 768px ) {
+    .grid-divider {
+        position: relative;
+        padding: 0;
+    }
+
+        .grid-divider > [class*='col-'] {
+            position: static;
+        }
+
+            .grid-divider > [class*='col-']:nth-child(n+2):before {
+                content: "";
+                border-left: 1px solid #007bff;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+            }
+
+    .col-padding {
+        padding: 0 15px;
+    }
+}
+/**/
+
+.fa.k-sprite, .fa.k-sprite::before {
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.dropdown-item {
+    width: inherit;
+}
+
+.sold-car {
+    text-decoration: line-through;
+    color: red;
+}
+
+.row-clickable-light {
+    background: lightgray;
+    padding: 0.5rem;
+}
+
+.row-clickable-normal {
+    background: gray;
+    padding: 0.5rem;
+}
+
+.hide {
+    display: none;
+}
+
+.btn-filters {
+    background: black;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
+}
+
+/* MESSAGE CSS */
+
+.close-click {
+    cursor: pointer;
+}
+
+.openDiv {
+    cursor: pointer;
+    width: 75%;
+}
+
+.closeDiv {
+    cursor: pointer;
+    width: 75%;
+}
+
+.messageDiv {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    border-radius: 5px;
+    border: 1px solid #000;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 75%;
+}
+
+.message-reply-icon {
+    margin: 3px;
+}
+
+/* MESSAGE CSS END */

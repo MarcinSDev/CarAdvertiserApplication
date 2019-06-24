@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CarAdvertiser.Models.UserAdvertsViewModel>
+@using CarAdvertiser.Models
+
+<div class="container-fluid" style="width: 80%">
+    <h3 align="center">Your Expired Adverts</h3>
+    <table id="searchResultTable" class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Advert ID</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Expire Date</th>
+                <th>Renew Advert</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model != null)
+            {
+                foreach (UserAdvertsViewModel item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(x => item.AdvertId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(x => item.Make)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(x => item.Model)
+                        </td>
+                        <td>
+                            £@Html.DisplayFor(x => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(x => item.ClosingDate)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("EditExpiredAdvert", "User")" class="btn btn-primary">Renew</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        var table = $("#searchResultTable").DataTable({
+            "paging": true,
+            "searching": true,
+            "pagingType": "full_numbers"
+        });
+    })
+</script>

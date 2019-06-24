@@ -1,0 +1,133 @@
+﻿@model CarAdvertiser.Models.WantedCarViewModel
+@{
+    ViewBag.Title = "AddWantedCar";
+}
+
+<p></p>
+<h2 align="center" style="color: grey; text-shadow: 0 0 1px black"> Add Wanted Car </h2>
+<hr />
+
+@if (TempData["error"] != null)
+{
+    <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h3>
+            <strong class="alert-heading">Error!</strong>
+        </h3>
+        <hr />
+        <p>
+            @Html.Raw(TempData["error"])
+        </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+else if (TempData["success"] != null)
+{
+    <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <h3>
+            <strong class="alert-heading">Success!</strong>
+        </h3>
+        <hr />
+        <p>
+            @Html.Raw(TempData["success"])
+        </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<p></p>
+
+@using (Html.BeginForm("AddWantedCar", "Advert", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid" style="background-color: white; width: 60%">
+        <div class="form-group row">
+            <div class="col-lg-2">
+                @Html.Label("Make:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-lg-4">
+                @Html.DropDownListFor(x => x.Make, (IEnumerable<SelectListItem>)ViewData["Make"], "--- Select Manufacturer ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.Make, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-2">
+                @Html.Label("Model:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-lg-4">
+                @Html.DropDownListFor(x => x.Model, new SelectList(string.Empty, "Value", "Text"), "--- Select Model ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.Model, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.Label("Minimum Year:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.MinYear, (IEnumerable<SelectListItem>)ViewData["Year"], "--- Select Min Reg Year ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.MinYear, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+                @Html.Label("Maximum Price:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => x.MaxPrice, (IEnumerable<SelectListItem>)ViewData["MaxPrice"], "--- Select Maximum Price ---", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(x => x.MaxPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="offset-lg-4 col-lg-4">
+                <input type="submit" id="btnAdd" name="btnAdd" value="Add Wanted Car" class="btn btn-primary w-100" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#Make").change(function() {
+            $("#Model").empty();
+            var makeSelectedIndex = $("#Make").prop('selectedIndex');
+            if (makeSelectedIndex !== 0) {
+                var placeOptionLabel = true;
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetModels", "Advert")',
+                    dataType: 'json',
+                    data: { makeId: $("#Make").val() },
+                    success: function(results) {
+                        $.each(results,
+                            function(i, result) {
+                                if (placeOptionLabel) {
+                                    $("#Model").append(
+                                        '<option selected="selected" value>--- Select a model ---</option>');
+                                    placeOptionLabel = false;
+                                }
+
+                                $("#Model")
+                                    .append('<option value="' + result.Value + '">' + result.Text + '</option>');
+                            });
+                    },
+                    error: function(ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            } else {
+                $("#Model").append('<option selected="selected" value>--- Select a model ---</option>');
+            }
+
+            return false;
+        });
+
+        $("#Make").trigger("change");
+    });
+
+    $("#successAlert").fadeTo(2000, 500).slideUp(500,
+        function() {
+            $("#successAlert").slideUp(500);
+        });
+
+</script>
+
+

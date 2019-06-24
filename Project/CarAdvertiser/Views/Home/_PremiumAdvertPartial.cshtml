@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CarAdvertiser.Models.PremiumAdvertViewModel>
+
+
+<link href="@Url.Content("~/Content/PremiumAdd.css")" rel="stylesheet" type="text/css" />
+
+@if (Model != null)
+{
+    <div class="container-fluid" style="width: 90%">
+        <div class="row" id="premiumCars">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-sm">
+                    <dl class="m-1">
+                        @{
+                            var base64 = Convert.ToBase64String(item.Images.First());
+                            var imgSrc = $"data:image/jpg;base64,{base64}";
+                        }
+                        <dt>
+                            <a href="@Url.Action("SelectedAdvert","Advert",new { id = item.AdvertId})">  <img class="img-fluid featured-car-img" src="@imgSrc" /></a>
+                        </dt>
+                        <dd>
+                            <p></p>
+                            <a href="@Url.Action("SelectedAdvert","Advert",new { id = item.AdvertId})"><h5 align="center">@item.Make @item.Model (@item.RegYear)</h5></a>
+                            
+                            <br />
+                            @item.Colour | @item.EngineSize.ToString("#.#")L | @item.FuelType | @item.BodyType  <br />
+                            <br />
+                            <br />
+                            <div class="price" style="padding-bottom: 5px">
+                                <hr />
+                                £@item.Price<br />
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            }
+        </div>
+    </div>
+}

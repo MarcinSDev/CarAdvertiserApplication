@@ -1,0 +1,98 @@
+﻿@using System.Web.UI.WebControls
+@model CarAdvertiser.Models.AdvertSearchViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+@using (Html.BeginForm("MainActiveAdverts", "Advert", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid full-width-image" style="width: 90%">
+        <div class="row">
+            <div class="offset-lg-3 col-lg-6">
+                <p></p>
+                <div  class="jumbotron" style="width: 100%">
+                    <h1>Search cars for sale</h1>
+                    <p class="lead">Largest Choice Of Cars</p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            @Html.DropDownList("frontendMakeId", (IEnumerable<SelectListItem>)ViewData["Make"], "Select Make", new { @class = "form-control dropdown" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.DropDownList("frontendModelId", new SelectList(string.Empty, "Value", "Text"), "Select Model", new { @class = "form-control dropdown" })
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(x => x.MinRegYear, (IEnumerable<SelectListItem>)ViewData["FromYear"], "Select Minimum Year", new { @class = "form-control dropdown" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(x => x.MaxRegYear, (IEnumerable<SelectListItem>)ViewData["ToYear"], "Select Maximum Year", new { @class = "form-control dropdown" })
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(x => x.MinPrice, (IEnumerable<SelectListItem>)ViewData["MinPrice"], "Select Minimum Price", new { @class = "form-control dropdown" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(x => x.MaxPrice, (IEnumerable<SelectListItem>)ViewData["MaxPrice"], "Select Maximum Price", new { @class = "form-control dropdown" })
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="col-lg-12">
+                        <input type="submit" id="btnSearch" name="btnSearch" value="Search" class="btn btn-primary w-100" />
+                        <br />
+                        <a style="align-self: right">@Html.ActionLink("Detailed Search", "AdvertSearch", "Advert")</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<p></p>
+<h2 align="center" style="color: black; text-shadow: 0 0 1px black"> Premium Adverts </h2>
+<hr />
+
+@Html.Action("GetAllPremiumAdverts", new {featured = 4})
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $("#frontendMakeId").change(function() {
+                $("#frontendModelId").empty();
+                var makeSelectedIndex = $("#frontendMakeId").prop('selectedIndex');
+
+                if (makeSelectedIndex !== 0) {
+                    var placeOptionLabel = true;
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetModels","Advert")',
+                        dataType: 'json',
+                        data: { makeId: $("#frontendMakeId").val() },
+                        success: function(results) {
+                            $.each(results,
+                                function(i, result) {
+                                    console.log("i:" + i);
+                                    if (placeOptionLabel) {
+                                        $("#frontendModelId").append(
+                                            '<option selected="selected" value>--- Any model ---</option>');
+                                        placeOptionLabel = false;
+                                    }
+
+                                    $("#frontendModelId").append('<option value="' + result.Value + '">' + result.Text + '</option>');
+                                });
+                        },
+                        error: function(ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                } else {
+                    $("#frontendModelId").append('<option selected="selected" value>--- Any model ---</option>');
+                }
+
+                return false;
+            });
+        })
+</script>

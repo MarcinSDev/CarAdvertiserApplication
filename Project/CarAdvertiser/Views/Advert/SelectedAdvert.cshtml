@@ -1,0 +1,242 @@
+﻿@using CarAdvertiser.Helpers
+@model  CarAdvertiser.Models.SelectedAdvertViewModel
+@{
+    ViewBag.Title = "SelectedAdvert";
+}
+
+
+<div class="container-fluid">
+    <div class="container-fluid" style="width: 70%">
+        <div class="row justify-content-center">
+            <h1>@Model.Make @Model.Model | @Model.RegYear </h1>
+        </div>
+        <div class="row justify-content-center">
+            <h3>£@Model.Price</h3>
+        </div>
+        <div class="row" style="padding-left: 5px; padding-right: 5px">
+            <div class="col-md" style="margin-right: 5px">
+                <div class="carousel slide" id="myCarousel_Pic" data-ride="carousel">
+
+                    <div class="carousel-inner">
+                        @{
+                            List<byte[]> images = @Model.Images.ToList();
+                            int iterations = 0;
+                        }
+                        @while (images.Any())
+                        {
+                            foreach (var image in images)
+                            {
+                                var active = iterations == 0 ? "active" : "";
+
+                                <div class="carousel-item @active">
+                                    <img src="data:image/jpg;base64,@Convert.ToBase64String(image)" width="550" height="350">
+                                </div>
+                                iterations++;
+                            }
+
+                            images = images.Skip(6 * iterations).Take(6).ToList();
+                        }
+                        <a data-slide="prev" href="#myCarousel_Pic" class="carousel-control-prev" role="button">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a data-slide="next" href="#myCarousel_Pic" class="carousel-control-next" role="button">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1" style="height: 100%">
+                <div class="row" style="padding-left: 50%">
+                    <h1>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <i class="far fa-envelope fa-1x" data-toggle="modal" data-target="#myModal"></i>
+                        }
+                        else
+                        {
+                            <i class="far fa-envelope fa-1x"></i>
+                        }
+
+                    </h1>
+                </div>
+                <div class="row" style="padding-left: 50%; padding-bottom: 50%; padding-top: 50%">
+                    <h1><i class="fas fa-phone fa-1x"></i></h1>
+                </div>
+                <div class="row" style="padding-left: 50%">
+                    <h1>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <i class="fas fa-address-book fa-1x" data-toggle="modal" data-target="#bookingModal"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-address-book fa-1x"></i>
+                        }
+                    </h1>
+                </div>
+            </div>
+            <div class="col-md" style="margin-left: 5px; height: 100%">
+                <div class="row">
+                    <div class="col-md">
+                        Make:<br />
+                        Model: <br />
+                        Horse Power: <br />
+                        Engine Size: <br />
+                        Body Type: <br />
+                        Transmission: <br />
+                        Number of Seats: <br />
+                        Number of Doors <br />
+                        Drivetrain: <br />
+                        Fuel Type: <br />
+                        Colour: <br />
+                        Reg Year: <br />
+                        Number of Owners:<Br />
+                        Price: <br />
+                        Advert Close Date:
+                    </div>
+                    <div class="col-md">
+                        @Model.Make<br />
+                        @Model.Model<br />
+                        @Model.HorsePower<br />
+                        @Model.EngineSize.ToString("#.#")L<br />
+                        @Model.BodyType<br />
+                        @Model.Transmission<br />
+                        @Model.SeatAmount<br />
+                        @Model.DoorAmount<br />
+                        @Model.DriveTrain<br />
+                        @Model.FuelType<br />
+                        @Model.Colour<br />
+                        @Model.RegYear<Br />
+                        @Model.AmountOfOwners<br />
+                        £@Model.Price<br />
+                        @Model.AdvertCloseDate.ToString("d")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="width: 70%">
+        <div class="row" style="padding-left: 5px; padding-right: 5px">
+            <div class="col-md" style="margin-right: 5px">
+                <h3 align="center">This car is equiped with <hr /></h3>
+                @foreach (var item in Model.Extras)
+                {
+                    <h6>*@item.AdditionalEquipment.Value</h6>
+                }
+            </div>
+            <div class="col-md" style="margin-left: 5px">
+                <h3 align="center"> Advertisement Description <hr /></h3>
+                <h6>@Model.Description</h6>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Send message</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                @Html.TextArea("messageText", new { style = "width: 100%; height: 100px;", @class = "form-control" })
+            </div>
+
+            <div class="modal-footer">
+                <button id="sendMessage" type="button" class="btn btn-danger" data-dismiss="modal">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="bookingModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Available booking dates</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            @using (Ajax.BeginForm("SendBooking", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "onSuccess",OnFailure = "onFailure"}, new { @id = "formSend" }))
+            {
+                @Html.HiddenFor(x => x.Id)
+                <div class="modal-body">
+                    @Html.EditorFor(x => x.BookingDates)
+                </div>
+
+                <div class="modal-footer">
+                    <button id="sendReservation" type="button" class="btn btn-danger" data-dismiss="modal">Book</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="messageResult">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body" id="resultMessage">
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnClose" type="button" data-dismiss="modal" class="btn btn-primary" aria-label="Close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function onSuccess(data) {
+        var result = JSON.stringify(data);
+        $("#resultMessage").html(result);
+        $("#messageResult").modal('show');
+
+        //we have to reload the page only if we booked a date and pressed the CLOSE button after it. We don't have to reload it after sending message, that's why this event is fired from here
+        $("#btnClose").click(function() {
+            window.location.reload();
+        });
+    }
+
+    function onFailure(xhr) {
+        $("#resultMessage").html("Error " + xhr.status + ": " + xhr.responseJSON);
+        $("#messageResult").modal('show');
+    }
+    
+    $("#sendMessage").click(function() {
+
+        $.ajax({
+            url: '@Url.Action("SendMessage", "Message")',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                message: $("#messageText").val(),
+                toId: @Model.AdvertiserId
+            },
+            success: function(data) {
+                $("#resultMessage").html(data.result);
+                $("#messageResult").modal('show');
+            },
+            error: function(xhr) {
+                console.log(JSON.stringify(xhr));
+                $("#resultMessage").html("Error " + xhr.status + ": " + xhr.responseJSON);
+                $("#messageResult").modal('show');
+            }
+        });
+    });
+
+    $("#sendReservation").click(function () {
+        $("#formSend").submit();
+    });
+</script>
+
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script> 

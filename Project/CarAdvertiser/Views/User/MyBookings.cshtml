@@ -1,0 +1,46 @@
+﻿@using CarAdvertiser.Models
+@model IEnumerable<CarAdvertiser.Models.MyBookingsViewModel>
+@{
+    ViewBag.Title = "ManageAdverts";
+}
+
+<div class="container-fluid" style="width: 80%">
+    <h3 align="center">Currently Active Adverts</h3>
+    <table id="result" class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Advert ID</th>
+                <th>Make</th>
+                <th>Model</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MyBookingsViewModel item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(x => item.Make)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.BookingDate)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        var table = $("#result").DataTable({
+            "paging": true,
+            "searching": true,
+            "pagingType": "full_numbers"
+        });
+    })
+</script>
+
+
+

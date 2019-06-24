@@ -1,0 +1,23 @@
+﻿[
+  {
+    "Value": "Petrol"
+  },
+  {
+    "Value": "Diesel"
+  },
+  {
+    "Value": "Electric"
+  },
+  {
+    "Value": "Hybrid - Diesel/Electric"
+  },
+  {
+    "Value": "Hybrid - Petrol/Electric"
+  },
+  {
+    "Value": "Bi-Fuel"
+  },
+  {
+    "Value": "Unlisted"
+  }
+]
